@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dt.dtforumbackend.mapper.ArticleMapper">
+
+    <select id="findArticlesByKeywordNames" resultType="com.dt.dtforumbackend.model.Article">
+        SELECT DISTINCT a.*
+        FROM articles a
+        JOIN article_keywords ak ON a.id = ak.article_id
+        JOIN keywords k ON ak.keyword_id = k.id
+        WHERE k.name IN
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

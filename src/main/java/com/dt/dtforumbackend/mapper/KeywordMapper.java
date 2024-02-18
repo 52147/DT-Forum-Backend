@@ -13,8 +13,11 @@ public interface KeywordMapper {
     @Select("SELECT * FROM keywords")
     List<Keyword> findAll();
 
-    @Select("SELECT k.id, k.name FROM keywords k " +
-            "JOIN article_keywords ak ON k.id = ak.keyword_id " +
-            "WHERE ak.article_id = #{articleId}")
+    @Select("SELECT k.id, k.name FROM keywords k " + "JOIN article_keywords ak ON k.id = ak.keyword_id " + "WHERE ak.article_id = #{articleId}")
     List<Keyword> findByArticleId(@Param("articleId") Integer articleId);
+
+    @Select("SELECT k.* FROM keywords k " + "INNER JOIN article_keywords ak ON k.id = ak.keyword_id " + "WHERE ak.article_id = #{articleId}")
+    List<Keyword> findKeywordsByArticleId(@Param("articleId") Integer articleId);
+
+
 }
