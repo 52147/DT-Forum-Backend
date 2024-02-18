@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.*;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -34,7 +36,10 @@ public class Article {
     @Column
     @Temporal(TemporalType.DATE)
     private Date date;
-
+    public String getDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return formatter.format(date);
+    }
     @Column(name = "messageCounts")
     private Integer messageCounts;
 
@@ -52,5 +57,15 @@ public class Article {
     @Transient // This annotation marks the field as not persistent
     private Set<String> keywordNames = new HashSet<>();
 
+    @Column(length = 255)
+    private String title; // Added field to match the SQL table
+    @Column(name = "likes_count")
+    private Integer likes_count;
+
+    @Column(length = 255)
+    private String location; // Added field to match the SQL table
+    @Column(length = 2000)
+    private String content; // Added field to match the SQL table
     // Lombok will generate the necessary getters and setters
+
 }

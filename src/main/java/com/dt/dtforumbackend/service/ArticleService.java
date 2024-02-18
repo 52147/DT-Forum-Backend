@@ -31,4 +31,16 @@ public class ArticleService {
         });
         return articles;
     }
+    // New method to get an article by ID
+    public Article getArticleById(Integer id) {
+        Article article = articleMapper.findById(id); // Assuming this method is defined in ArticleMapper
+        if (article != null) {
+            List<String> keywordNames = keywordMapper.findByArticleId(article.getId())
+                    .stream()
+                    .map(Keyword::getName)
+                    .collect(Collectors.toList());
+            article.setKeywordNames(new HashSet<>(keywordNames)); // Assuming Article has a setter for keywordNames
+        }
+        return article;
+    }
 }

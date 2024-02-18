@@ -20,5 +20,13 @@ public interface ArticleMapper {
             "JOIN article_keywords ak ON k.id = ak.keyword_id " +
             "WHERE ak.article_id = #{articleId}")
     List<Keyword> selectKeywordsForArticle(Integer articleId);
+
+    @Select("SELECT * FROM articles WHERE id = #{id}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "keywords", column = "id",
+                    many = @Many(select = "selectKeywordsForArticle"))
+    })
+    Article findById(Integer id);
 }
 
