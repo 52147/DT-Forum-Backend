@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("/articles")
 public class ArticleController {
@@ -41,6 +41,11 @@ public class ArticleController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(relatedArticles);
+    }
+    @PostMapping("/{id}/like")
+    public ResponseEntity<Void> incrementLike(@PathVariable("id") Integer id) {
+        articleService.incrementLikesCount(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

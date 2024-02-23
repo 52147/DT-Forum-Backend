@@ -99,5 +99,8 @@ public class ArticleService {
     public List<Article> getArticlesByKeywordNames(List<String> keywordNames) {
         return articleMapper.findArticlesByKeywordNames(keywordNames);
     }
+    public void incrementLikesCount(Integer articleId) {
+        articleMapper.incrementLikesCount(articleId);
+    }
 
 }

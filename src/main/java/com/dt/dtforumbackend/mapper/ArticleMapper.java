@@ -26,5 +26,8 @@ public interface ArticleMapper {
 
     @Select("SELECT * FROM articles WHERE topic = #{articleTopic}")
     List<Article> findArticlesByTopic(String articleTopic);
+
+    @Update("UPDATE articles SET likes_count = likes_count + 1 WHERE id = #{id}")
+    void incrementLikesCount(Integer id);
 }
 
